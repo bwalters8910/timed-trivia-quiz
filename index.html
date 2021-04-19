@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Trivia Game!</title>
+</head>
+<body>
+    <section id= "titleContainer">
+        <h1 class= "title">Random Trivia Game!</h1>
+        <button class= "startBtn">Start</button>
+        <h2 class= "scores">High Scores:</h2>
+    </section>
+
+    <section id= "questionContainer">
+        <h3>What's the largest animal to have ever been discovered?</h3>
+            <button onclick="incorrectAnswer()">Brachiosaurus</button>
+            <button onclick="incorrectAnswer()">Woolly Mammoth</button>
+            <button onclick="correctAnswer()">Blue Whale</button>
+            <button onclick="incorrectAnswer()">Megalodon</button>
+                <p><span class= "message"></span></p>
+    </section>
+
+    <section id= "finalPageContainer">
+        <h1>Congratulations! You've finished the quiz!</h1>
+        <h2>Total Points:<span class= "total-points"></span></h2>
+
+    </section>
+    <script src = "assets/script.js"></script>
+</body>
+</html>
