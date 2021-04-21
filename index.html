@@ -10,23 +10,21 @@
     <section id= "titleContainer">
         <h1 class= "title">Random Trivia Game!</h1>
         <button class= "startBtn">Start</button>
-        <h2 class= "scores">High Scores:</h2>
+        <h2>High Scores:</h2>
     </section>
 
     <section id= "questionContainer">
-        <h3>What's the largest animal to have ever been discovered?</h3>
-            <button onclick="incorrectAnswer()">Brachiosaurus</button>
-            <button onclick="incorrectAnswer()">Woolly Mammoth</button>
-            <button onclick="correctAnswer()">Blue Whale</button>
-            <button onclick="incorrectAnswer()">Megalodon</button>
-                <p><span class= "message"></span></p>
+        <h3><span class= "questionDisplay"></span></h3>
+        <ul class= "answerDisplay"></ul>
+        <p class= "message"></p>
+        <p>Seconds Left: <span class= "timer-display"></span></p>
     </section>
 
-    <section id= "finalPageContainer">
-        <h1>Congratulations! You've finished the quiz!</h1>
-        <h2>Total Points:<span class= "total-points"></span></h2>
-
+    <section id="finalPageContainer">
+        <h3>You've finished the quiz!</h3>
+            <h4><span class= "highScoreDisplayArea"></span></h4>
     </section>
-    <script src = "assets/script.js"></script>
+
+    <script src = "./assets/script.js"></script>
 </body>
 </html>

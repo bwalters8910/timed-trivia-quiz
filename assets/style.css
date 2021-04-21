@@ -5,3 +5,7 @@
 #titleContainer {
     display: block
 };
+
+#finalPageContainer {
+    display: none
+};
