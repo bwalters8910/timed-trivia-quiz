@@ -1,15 +1,6 @@
-//init page and pull stored data (user initials & high scores) then display on title screen
-
-//add event listener on the start button to pull question from array of objects and display on the screen (add timer after you get the game funtioning)
-
-//allow user to select answers using event listeners (+10 points for correct answer and pull another question from the array, wrong answer display message "WRONG" and deduct time)
-
-//when user answers all questions correctly (or time runs out), display "YOU HAVE FINISHED THE QUIZ" and show total score. Prompt user to enter initials. Save that info locally & display scores on final screen
-
-//add try again/reset button to the final page
-
 
 let startButton = document.querySelector(".startBtn");
+let restartButton = document.querySelector(".restartBtn")
 let titlePage = document.getElementById("titleContainer");
 let questionPage = document.getElementById("questionContainer");
 let questionArea = document.querySelector(".questionDisplay");
@@ -18,6 +9,11 @@ let finalPage = document.getElementById("finalPageContainer");
 let timerElement = document.querySelector(".timer-display");
 let timer;
 let timerCount;
+let score = localStorage.getItem("score");
+let highScoreDisplay = document.querySelector(".highScoreArea");
+let ansPoints = 0;
+let oldHighScoresTitle = document.querySelector(".high-score-title");
+
 
 
  let questions = [
@@ -26,16 +22,16 @@ let timerCount;
      choices: ["Megalodon", "Brachiosaurus", "Blue Whale", "Woolly Mammoth"],
      answer: "3. Blue Whale",
    },
-  //  {
-  //    text: "How many bones are in the adult human body?",
-  //    choices: ["312", "206", "162", "415"],
-  //    answer: "206",
-  //  },
-  //  {
-  //    text: "What period of time was T-Rex alive?",
-  //    choices: ["Jurassic", "Triassic", "Permian", "Cretaceous"],
-  //    answer: "Cretaceous",
-  //  },
+    {
+      text: "How many bones are in the adult human body?",
+      choices: ["312", "206", "162", "415"],
+      answer: "2. 206",
+    },
+    {
+      text: "What period of time was T-Rex alive?",
+      choices: ["Jurassic", "Triassic", "Permian", "Cretaceous"],
+      answer: "4. Cretaceous",
+    },
  ];
 
 
@@ -43,14 +39,16 @@ function init() {
   getHighScores();
   questionPage.setAttribute("style", "display: none");
   finalPage.setAttribute("style", "display: none")
+  resetTimer();
 };
 
+//still working on getting values saved as object
 function getHighScores() {
+  let highScores = JSON.parse(localStorage.getItem("highScore"));
+  document.querySelector(".high-score-title").textContent = `${highScores.name}..................` + `${highScores.score}`;
+
   //check local storage for high scores & render them to the page
-  // let highScores = JSON.parse(localStorage.getItem("storedScores"));
-  // if (highScores !== null) {
-  //   document.querySelector(".scores").textContent = highScores.name + highScores.score
-  // }
+  //get array from local storage as string & conver using parse, then loop in order to render
 
 };
 
@@ -59,14 +57,19 @@ function startTimer() {
   timer = setInterval(function () {
     timerCount--;
     timerElement.textContent = timerCount;
-    if (timerCount === 0) {
+    if (timerCount <= 0) {
       // Clears interval
       clearInterval(timer);
+      window.alert("Time has expired!")
       renderFinalPage();
     }
   }, 1000);
 }
 
+
+function resetTimer() {
+  timerCount = 60;
+}
 
 
 function startGame() {
@@ -74,19 +77,23 @@ function startGame() {
   timerCount = 60;
   titlePage.setAttribute("style", "display: none");
   questionPage.setAttribute("style", "display: block");
-  renderQuestion();
+  checkArrayLength();
   startTimer();
 };
 
-// function getQuestion() {
-//   //stores first question object from questions array locallay as string
-//   localStorage.setItem("questions", JSON.stringify(questions[0]));
-//   renderQuestion();
-//      };
 
-//add comment for renderquestion functionality
+function checkArrayLength() {
+  if (questions != "") {
+      renderQuestion();
+  }
+  else {
+    renderFinalPage();
+    }
+}
+
 function renderQuestion() {
   //pulls first question from array and displays on screen
+  answerMessage.textContent = '';
   let answerArea = document.querySelector(".answerDisplay");
   let firstQuestion = questions[0];
   document.querySelector(".questionDisplay").textContent = firstQuestion.text
@@ -98,44 +105,75 @@ function renderQuestion() {
     btn.addEventListener("click", handleAnswerClick);
     answerArea.appendChild(btn);
   }
+
 };
 
 function removeAnswerButtons() {
  // Removes the buttons/answers from previous question
 document.querySelector(".answerDisplay").innerHTML = "";
- }
+};
 
+ //still need to add points for correct answer
 function handleAnswerClick() {
   //take the textContent of button and compare to correct answer
   //if correct proceed to next qeuestion or final screen
-  //else deduct 5 seconds
+  //else deduct 10 seconds
   document.querySelector(".answerDisplay").onclick = function (event) {
     let clickedAnswer = event.target.innerHTML;
     console.log(clickedAnswer);
 
-      if (clickedAnswer === questions[0].answer) { //try this.answer here
-        renderFinalPage();
-        //try removing question from array with .shift() here
-        //break;
+    if (clickedAnswer === questions[0].answer) {
+      answerMessage.textContent = "CORRECT!";
+      ansPoints = ansPoints + 10;
+      removeAnswerButtons();
+      questions.shift();
+      checkArrayLength();
+      //add points for correct answer
+    }
 
-      } else {
-        timerCount = timerCount - 7;
+      else {
+        timerCount = timerCount - 10;
         answerMessage.textContent = "WRONG!";
 
-      }
     }
-  };
 
+    }
+};
 
+//need to store initals and score as object, then save locally
 function renderFinalPage() {
+  let totalPoints = timerCount + ansPoints
+  let initials = window.prompt("Enter initials for high score.")
+  //check local storage for existing scores, grab those
+
+
+  //set variable to empty array
+  let highScores = [];
+
+  //create score object
+  let highScoreObj = {
+    name: initials,
+    score: totalPoints,
+  }
+  highScores.push(highScoreObj)
+
+
+  //save this new array back to local storage
+  localStorage.setItem("highScore", JSON.stringify(highScoreObj));
   questionPage.setAttribute("style", "display: none");
   finalPage.setAttribute("style", "display: block");
-}
+  highScoreDisplay.textContent = totalPoints;
+  clearInterval(timer);
+
+};
 
 startButton.addEventListener("click", function () {
   startGame();
 });
 
+restartButton.addEventListener("click", function () {
+  location.reload();
+});
 
 init();
 
