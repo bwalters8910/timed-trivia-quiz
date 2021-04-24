@@ -15,41 +15,84 @@ let ansPoints = 0;
 let oldHighScoresTitle = document.querySelector(".high-score-title");
 
 
-
  let questions = [
    {
      text: "What's the largest animal to have ever roamed the earth?",
      choices: ["Megalodon", "Brachiosaurus", "Blue Whale", "Woolly Mammoth"],
-     answer: "3. Blue Whale",
+     answer: "Blue Whale",
    },
-    {
-      text: "How many bones are in the adult human body?",
-      choices: ["312", "206", "162", "415"],
-      answer: "2. 206",
-    },
-    {
-      text: "What period of time was T-Rex alive?",
-      choices: ["Jurassic", "Triassic", "Permian", "Cretaceous"],
-      answer: "4. Cretaceous",
-    },
+   {
+     text: "How many championships has Michael Jordan won?",
+     choices: ["5", "6", "7", "8"],
+     answer: "6",
+   },
+   {
+     text: "How many bones are in the adult human body?",
+     choices: ["312", "206", "162", "415"],
+     answer: "206",
+   },
+   {
+     text: "What is the national animal of Scotland?",
+     choices: ["Jack Rabbit", "Highland Cow", "Red Deer", "Unicorn"],
+     answer: "Unicorn",
+   },
+   {
+     text: "How many feet are in a mile?",
+     choices: ["4790", "5280", "6200", "5950"],
+     answer: "5280",
+   },
+   {
+     text: "Who was the 3rd president of the United States?",
+     choices: [
+       "George Washington",
+       "Thomas Jefferson",
+       "James Madison",
+       "John Adams",
+     ],
+     answer: "Thomas Jefferson",
+   },
+   {
+     text: "What time is 5:00 PM in military time?",
+     choices: ["1500", "1600", "1700", "1800"],
+     answer: "1700",
+   },
+   {
+     text: "What team won the first ever Super Bowl?",
+     choices: ["Bears", "Packers", "Chiefs", "Browns"],
+     answer: "Packers",
+   },
+   {
+     text: "What is a baby puffin called?",
+     choices: ["Puffling", "Pouf", "Lil Puff", "Puffle"],
+     answer: "Puffling",
+   },
+   {
+     text:
+       "Approximately how many grapes does it take to make a single bottle of wine?",
+     choices: ["700", "300", "1100", "3000"],
+     answer: "700",
+   },
  ];
-
 
 function init() {
   getHighScores();
-  questionPage.setAttribute("style", "display: none");
-  finalPage.setAttribute("style", "display: none")
   resetTimer();
 };
 
-//still working on getting values saved as object
 function getHighScores() {
+  questionPage.setAttribute("style", "display: none");
+  finalPage.setAttribute("style", "display: none");
+
   let highScores = JSON.parse(localStorage.getItem("highScore"));
-  document.querySelector(".high-score-title").textContent = `${highScores.name}..................` + `${highScores.score}`;
+  //sort here by score key
+  highScores.sort((a, b) => b.score - a.score);
+  //loop through highscores array & display on title screen
+  for (i = 0; i < highScores.length; i++) {
+     let scoreLi = document.createElement("li");
+    scoreLi.textContent = `${highScores[i].name}..................` + `${highScores[i].score}`;
+    oldHighScoresTitle.appendChild(scoreLi);
 
-  //check local storage for high scores & render them to the page
-  //get array from local storage as string & conver using parse, then loop in order to render
-
+  };
 };
 
 function startTimer() {
@@ -66,11 +109,9 @@ function startTimer() {
   }, 1000);
 }
 
-
 function resetTimer() {
   timerCount = 60;
 }
-
 
 function startGame() {
   //hide title screen & show question screen
@@ -80,7 +121,6 @@ function startGame() {
   checkArrayLength();
   startTimer();
 };
-
 
 function checkArrayLength() {
   if (questions != "") {
@@ -101,7 +141,7 @@ function renderQuestion() {
   //loop that generates answer buttons & dynamically fills them with answer text
   for (let i = 0; i < firstQuestion.choices.length; i++) {
     let btn = document.createElement("BUTTON");
-    btn.textContent = `${i+1}. ${firstQuestion.choices[i]}`;
+    btn.textContent = `${firstQuestion.choices[i]}`;
     btn.addEventListener("click", handleAnswerClick);
     answerArea.appendChild(btn);
   }
@@ -113,7 +153,6 @@ function removeAnswerButtons() {
 document.querySelector(".answerDisplay").innerHTML = "";
 };
 
- //still need to add points for correct answer
 function handleAnswerClick() {
   //take the textContent of button and compare to correct answer
   //if correct proceed to next qeuestion or final screen
@@ -128,43 +167,40 @@ function handleAnswerClick() {
       removeAnswerButtons();
       questions.shift();
       checkArrayLength();
-      //add points for correct answer
     }
-
       else {
         timerCount = timerCount - 10;
         answerMessage.textContent = "WRONG!";
-
     }
-
     }
 };
 
-//need to store initals and score as object, then save locally
+
 function renderFinalPage() {
-  let totalPoints = timerCount + ansPoints
-  let initials = window.prompt("Enter initials for high score.")
-  //check local storage for existing scores, grab those
-
-
-  //set variable to empty array
-  let highScores = [];
+  let totalPoints = timerCount + ansPoints;
+  let initials = window.prompt("Enter initials for high score.");
 
   //create score object
   let highScoreObj = {
     name: initials,
     score: totalPoints,
+  };
+
+
+  //check local storage for existing scores, grab those
+  if (localStorage.getItem('highScore') === null) {
+    localStorage.setItem('highScore', '[]');
   }
-  highScores.push(highScoreObj)
 
+  let oldHighScores = JSON.parse(localStorage.getItem('highScore'));
+  oldHighScores.push(highScoreObj);
 
-  //save this new array back to local storage
-  localStorage.setItem("highScore", JSON.stringify(highScoreObj));
+  localStorage.setItem('highScore', JSON.stringify(oldHighScores));
+
   questionPage.setAttribute("style", "display: none");
   finalPage.setAttribute("style", "display: block");
   highScoreDisplay.textContent = totalPoints;
   clearInterval(timer);
-
 };
 
 startButton.addEventListener("click", function () {
