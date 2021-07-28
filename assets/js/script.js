@@ -143,6 +143,7 @@ function renderQuestion() {
     let btn = document.createElement("BUTTON");
     btn.textContent = `${firstQuestion.choices[i]}`;
     btn.classList.add("btn-success");
+    btn.classList.add("btn");
     btn.addEventListener("click", handleAnswerClick);
     answerArea.appendChild(btn);
   }
