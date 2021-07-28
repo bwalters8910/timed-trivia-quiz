@@ -4,13 +4,19 @@
     width:fit-content;
 }
 
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 #questionContainer {
     display: none;
 }
 
 #titleContainer {
-    display: block;
+    display: flex;
 }
 
 #finalPageContainer {

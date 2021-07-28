@@ -117,7 +117,7 @@ function startGame() {
   //hide title screen & show question screen
   timerCount = 60;
   titlePage.setAttribute("style", "display: none");
-  questionPage.setAttribute("style", "display: block");
+  questionPage.setAttribute("style", "display: flex");
   checkArrayLength();
   startTimer();
 };
@@ -142,6 +142,7 @@ function renderQuestion() {
   for (let i = 0; i < firstQuestion.choices.length; i++) {
     let btn = document.createElement("BUTTON");
     btn.textContent = `${firstQuestion.choices[i]}`;
+    btn.classList.add("btn-success");
     btn.addEventListener("click", handleAnswerClick);
     answerArea.appendChild(btn);
   }
@@ -198,7 +199,7 @@ function renderFinalPage() {
   localStorage.setItem('highScore', JSON.stringify(oldHighScores));
 
   questionPage.setAttribute("style", "display: none");
-  finalPage.setAttribute("style", "display: block");
+  finalPage.setAttribute("style", "display: flex");
   highScoreDisplay.textContent = totalPoints;
   clearInterval(timer);
 };

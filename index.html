@@ -5,28 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Trivia Game!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
 
 </head>
 <body>
-    <section id="titleContainer">
+    <section id="titleContainer" class="center">
         <h1 class="title">Random Trivia Game!</h1>
-        <button class="startBtn">Start</button>
+        <button class="startBtn btn-success">Start</button>
         <h2>High Scores:</h2>
         <ol><span class="high-score-title"></span></ol>
     </section>
 
-    <section id="questionContainer">
+    <section id="questionContainer" class="center">
         <h3><span class="questionDisplay"></span></h3>
         <ul class="answerDisplay button-spacing"></ul>
         <p class="message"></p>
         <p>Seconds Left: <span class="timer-display"></span></p>
     </section>
 
-    <section id="finalPageContainer">
+    <section id="finalPageContainer" class="center">
         <h3>You've finished the quiz!</h3>
             <h4>Your Score: <span class="highScoreArea"></span></h4>
-            <button class="restartBtn">Return to Title Screen</button>
+            <button class="restartBtn btn-success">Return to Title Screen</button>
     </section>
 
     <script src ="./assets/js/script.js"></script>
