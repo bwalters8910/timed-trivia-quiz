@@ -5,26 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Trivia Game!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
 
 </head>
 <body>
-    <section id="titleContainer" class="center">
+    <section id="titleContainer" class="center p-t-8">
         <h1 class="title">Random Trivia Game!</h1>
         <button class="startBtn btn btn-success">Start</button>
-        <h2>High Scores:</h2>
-        <ol><span class="high-score-title"></span></ol>
+        <h3 class="m-t-30px">Instructions:</h3>
+        <p class="m-b-0">You have 60 seconds to answer as many questions correctly as possible.</p>
+        <p class="m-b-0">Each wrong answer will deduct 5 seconds from the clock.</p>
+        <p class="m-b-0">See if you can complete them all before time expires!</p>
+        <h2 class="m-t-30px">High Scores:</h2>
+        <ol class="p-l-0"><span class="high-score-title"></span></ol>
     </section>
 
-    <section id="questionContainer" class="center">
+    <section id="questionContainer" class="center p-t-8">
         <h3><span class="questionDisplay"></span></h3>
-        <ul class="answerDisplay button-spacing"></ul>
+        <ul class="answerDisplay button-spacing p-l-0"></ul>
         <p class="message"></p>
         <p>Seconds Left: <span class="timer-display"></span></p>
     </section>
 
-    <section id="finalPageContainer" class="center">
+    <section id="finalPageContainer" class="center p-t-8">
         <h3>You've finished the quiz!</h3>
             <h4>Your Score: <span class="highScoreArea"></span></h4>
             <button class="restartBtn btn btn-success">Return to Title Screen</button>

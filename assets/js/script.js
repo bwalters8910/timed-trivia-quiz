@@ -84,14 +84,21 @@ function getHighScores() {
   finalPage.setAttribute("style", "display: none");
 
   let highScores = JSON.parse(localStorage.getItem("highScore"));
-  //sort here by score key
-  highScores.sort((a, b) => b.score - a.score);
-  //loop through highscores array & display on title screen
-  for (i = 0; i < highScores.length; i++) {
-     let scoreLi = document.createElement("li");
-    scoreLi.textContent = `${highScores[i].name}..................` + `${highScores[i].score}`;
-    oldHighScoresTitle.appendChild(scoreLi);
-
+  // if no high scores in local storgae show message
+  if (highScores === null) {
+    let scoreMessage = document.createElement("p");
+    scoreMessage.textContent = "There are no high scores yet";
+    oldHighScoresTitle.appendChild(scoreMessage);
+    //if local storage, show high scores
+  } else {
+    //sort here by score key
+    highScores.sort((a, b) => b.score - a.score);
+    //loop through highscores array & display on title screen
+    for (i = 0; i < highScores.length; i++) {
+      let scoreLi = document.createElement("li");
+      scoreLi.textContent = `${highScores[i].name}..................` + `${highScores[i].score}`;
+      oldHighScoresTitle.appendChild(scoreLi);
+    };
   };
 };
 
@@ -144,6 +151,7 @@ function renderQuestion() {
     btn.textContent = `${firstQuestion.choices[i]}`;
     btn.classList.add("btn-success");
     btn.classList.add("btn");
+    btn.classList.add("m-5px");
     btn.addEventListener("click", handleAnswerClick);
     answerArea.appendChild(btn);
   }
@@ -161,7 +169,6 @@ function handleAnswerClick() {
   //else deduct 10 seconds
   document.querySelector(".answerDisplay").onclick = function (event) {
     let clickedAnswer = event.target.innerHTML;
-    console.log(clickedAnswer);
 
     if (clickedAnswer === questions[0].answer) {
       answerMessage.textContent = "CORRECT!";
@@ -171,8 +178,10 @@ function handleAnswerClick() {
       checkArrayLength();
     }
       else {
-        timerCount = timerCount - 10;
-        answerMessage.textContent = "WRONG!";
+      timerCount = timerCount - 5;
+      answerMessage.classList.add("text-red");
+      answerMessage.textContent = "WRONG! -5 seconds";
+
     }
     }
 };

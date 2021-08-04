@@ -1,3 +1,7 @@
+*{
+    font-family: 'Open Sans', sans-serif;
+}
+
 .button-spacing {
     display: flex;
     flex-direction: column;
@@ -10,6 +14,29 @@
     align-items: center;
 }
 
+.p-t-8 {
+    padding-top: 8%;
+}
+
+.p-l-0 {
+    padding-left: 0;
+}
+
+.m-5px {
+    margin: 5px;
+}
+
+.m-b-0 {
+    margin-bottom: 0;
+}
+
+.m-t-30px {
+    margin-top: 30px;
+}
+
+.text-red {
+    color: red;
+}
 
 #questionContainer {
     display: none;
