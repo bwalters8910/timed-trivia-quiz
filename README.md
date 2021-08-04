@@ -10,9 +10,9 @@ https://bwalters8910.github.io/timed-trivia-quiz/
 
 
 
-![screenshot-titlescreen](assets/images/screenshot1.PNG)
-![screenshot-question](assets/images/screenshot2.PNG)
-![screenshot-finalpage](assets/images/screenshot3.PNG)
+![screenshot-titlescreen](/assets/images/SCREENSHOT1.PNG)
+![screenshot-question](/assets/images/SCREENSHOT2.PNG)
+![screenshot-finalpage](/assets/images/SCREENSHOT3.PNG)
 
 
 ## License
